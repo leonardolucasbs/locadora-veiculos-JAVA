@@ -14,7 +14,9 @@ Controle de disponibilidade dos veículos
 
 Cálculo do valor da locação com base no tempo de uso
 
-##👥 Contribuintes:
-Leonardo Lucas de Brito Silva
+## 📌 Integrantes envolvidos no projeto:
 
-Maximus Feitoza Lira Cunha
+ - [Maximus Feitoza Lira Cunha](https://github.com/MaxFeitoza)
+ - [Leonardo Lucas de Brito Silva](https://github.com/leonardolucasbs)
+ 
+  
