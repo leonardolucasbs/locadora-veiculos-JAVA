@@ -28,6 +28,17 @@ public class Main {
         }
     }
 
+    public static Boolean validaPlacaVeiculo(String placa,ArrayList<Veiculos> listaVeiculos){
+        if(placa.length() != 7){
+            return true;
+        }
+        for(Veiculos veiculo : listaVeiculos){
+            if(veiculo.placa.equals(placa)){
+                return true;
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) {
         int anoAtual = LocalDate.now().getYear();
         ArrayList<Veiculos> listaVeiculos = new ArrayList<>();
@@ -42,10 +53,9 @@ public class Main {
                 System.out.println("[1] - Cadastro de Veículos");
                 System.out.println("[2] - Cadastro de Clientes");
                 System.out.println("[3] - Registrar Aluguel");
-                System.out.println("[4] - Calcular preço do Aluguel");
-                System.out.println("[5] - Contratos de Aluguéis");
-                System.out.println("[6] - Listagem de Veículos");
-                System.out.println("[7] - Listagem de Clientes");
+                System.out.println("[4] - Contratos de Aluguéis");
+                System.out.println("[5] - Listagem de Veículos");
+                System.out.println("[6] - Listagem de Clientes");
                 System.out.println("[0] - Sair");
                 System.out.println("-------------------------------");
                 System.out.print("Opção: ");
@@ -62,6 +72,14 @@ public class Main {
                             System.out.print("Digite o modelo do veículo: ");
                             String modelo = input.nextLine().trim();
 
+                            System.out.print("Digite a placa do veículo: ");
+                            String placa = input.nextLine();
+                            boolean valida_placa = validaPlacaVeiculo(placa, listaVeiculos);
+                            while(valida_placa){
+                                System.out.print("OPS!Placa invalida\nDigite a placa do  novamente veículo: ");
+                                placa = input.nextLine().trim();
+                                valida_placa = validaPlacaVeiculo(placa, listaVeiculos);
+                            }
                             // Validação do ano
                             int ano = 0;
                             while (true) {
@@ -91,9 +109,8 @@ public class Main {
                                     System.out.println("Erro: Digite um número válido (ex: 150.50).");
                                 }
                             }
-
-                            listaVeiculos.add(new Veiculos(modelo, ano, valor));
-                            System.out.println("\n " + modelo + " cadastrado com sucesso!");
+                            listaVeiculos.add(new Veiculos(modelo, placa, ano, valor));
+                            System.out.println("\n " + modelo + " com placa: " +placa+ " cadastrado com sucesso!");
                             break;
 
                         case 2:
@@ -126,20 +143,13 @@ public class Main {
                             System.out.println("-------------------------------");
                             // (Implementação futura)
                             break;
-
                         case 4:
-                            System.out.println("\nCálculo de preço do aluguel");
-                            System.out.println("-------------------------------");
-                            // (Implementação futura)
-                            break;
-
-                        case 5:
                             System.out.println("\nContratos de aluguéis");
                             System.out.println("-------------------------------");
                             // (Implementação futura)
                             break;
 
-                        case 6:
+                        case 5:
                             System.out.println("\nVeículos cadastrados:");
                             System.out.println("-------------------------------");
                             if (listaVeiculos.isEmpty()) {
@@ -151,7 +161,7 @@ public class Main {
                             }
                             break;
 
-                        case 7:
+                        case 6:
                             System.out.println("\nClientes cadastrados:");
                             System.out.println("-------------------------------");
                             if (listaClientes.isEmpty()) {
