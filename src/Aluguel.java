@@ -24,16 +24,16 @@ public class Aluguel {
         return data_formatada;
     }
 
-    public Aluguel(int quantidade_dias, LocalDate data_aluguel, LocalDate final_aluguel,Clientes cliente,Veiculos veiculo){
+    public Aluguel(int quantidade_dias, Clientes cliente, Veiculos veiculo){
         this.quantidade_dias = quantidade_dias;
         this.cliente = cliente;
         this.veiculo = veiculo;
         String data_atual = FormataData(LocalDate.now());
         this.data_aluguel = data_atual;
-        this.final_aluguel =  FormataData(CalculaDataFinal(quantidade_dias, data_aluguel));
+        this.final_aluguel =  FormataData(CalculaDataFinal(quantidade_dias, LocalDate.now()));
         this.preco_aluguel = quantidade_dias * veiculo.valor;
     }
     public void exibirAlugueis(){
-        System.out.println("Cliente-CPF: " +cliente.cpf+ " | Veiculo: " +veiculo.modelo+" "+ veiculo.ano + "\n" + " | Data aluguel" + data_aluguel + " | Final do aluguel" + final_aluguel + " | Preco do aluguel: " + preco_aluguel);
+        System.out.println("Cliente-CPF: " +cliente.cpf+ " | Veiculo: " +veiculo.modelo+" "+ veiculo.ano + "\n" + " | Data aluguel: " + data_aluguel + " | Final do aluguel: " + final_aluguel + " | Preco do aluguel: " + preco_aluguel);
     }
 }

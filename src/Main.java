@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDate;
-
 public class Main {
 
     // Método auxiliar para ler dados numéricos com tamanho fixo (CPF/Telefone)
@@ -39,10 +38,82 @@ public class Main {
         }
         return false;
     }
+    public static boolean ValidaCpf(String cpf,ArrayList<Clientes> listaClientes){
+        for(Clientes cliente : listaClientes){
+            if(cliente.cpf.equals(cpf)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static Clientes PegaCliente(String cpf,ArrayList<Clientes> listaClientes){
+        for(Clientes cliente : listaClientes){
+            if(cliente.cpf.equals(cpf)){
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public static Veiculos PegaVeiculo(String placa,ArrayList<Veiculos> listaVeiculos){
+        for(Veiculos veiculo : listaVeiculos){
+            if(veiculo.placa.equals(placa)){
+                return veiculo;
+            }
+        }
+        return null;
+    }
+
+    public static boolean listaVeiculos(ArrayList<Veiculos> listaVeiculos){
+        if (listaVeiculos.isEmpty()) {
+            System.out.println("Nenhum veículo cadastrado.");
+            return false;
+        } else {
+            for (Veiculos v : listaVeiculos) {
+                v.exibirveiculo();
+            }
+            return true;
+        }
+    }
+
+    public static boolean listaClientes(ArrayList<Clientes> listaClientes){
+        if (listaClientes.isEmpty()) {
+            System.out.println("Nenhum cliente cadastrado.");
+             return false;
+        }else {
+            for (Clientes c : listaClientes) {
+                c.exibircliente();
+            }
+            return true;
+        }
+    }
+    public static boolean listaAluguels(ArrayList<Aluguel> listaAluguels){
+        if (listaAluguels.isEmpty()) {
+            System.out.println("Nenhum Aluguel cadastrado.");
+            return false;
+        }else {
+            for (Aluguel aluguel : listaAluguels) {
+                aluguel.exibirAlugueis();
+            }
+            return true;
+        }
+    }
+    public static boolean Continuar(){
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Deseja continuar: ");
+        System.out.println("[1]-Sim");
+        System.out.println("[2]-Nao");
+        int resposta = teclado.nextInt();
+        if(resposta==1){
+            return true;
+        }
+        return false;
+    }
     public static void main(String[] args) {
         int anoAtual = LocalDate.now().getYear();
         ArrayList<Veiculos> listaVeiculos = new ArrayList<>();
         ArrayList<Clientes> listaClientes = new ArrayList<>();
+        ArrayList<Aluguel> listaAluguels = new ArrayList<>();
         Scanner input = new Scanner(System.in);
         boolean continua = true;
 
@@ -141,36 +212,74 @@ public class Main {
                         case 3:
                             System.out.println("\nÁrea de registro de aluguel");
                             System.out.println("-------------------------------");
-                            // (Implementação futura)
+                            // pegando veiculo
+                            System.out.println("Veiculos cadastrados:");
+                            if(!listaVeiculos(listaVeiculos)){
+                                break;
+                            }
+                            System.out.println("-------------------------------");
+                            System.out.println("Digite a placa do veiculo que deseja alugar:");
+                            placa = input.nextLine();
+                            if(validaPlacaVeiculo(placa,listaVeiculos)){
+                                Veiculos veiculo = PegaVeiculo(placa,listaVeiculos);
+                                System.out.println("Veiculo encontrado!");
+                                System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.modelo+" Ano-> "+veiculo.ano+" Placa-> "+veiculo.placa);
+                                if(!Continuar()){
+                                    break;
+                                }
+                            }else{
+                                System.out.println("Placa invalida ou nao existe!");
+                                break;
+                            }   
+                        
+                            System.out.println("-------------------------------");
+                            // pegando veiculo
+                            System.out.println("Clientes cadastrados:");
+                            if(!listaClientes(listaClientes)){
+                                break;
+                            }
+                            System.out.println("-------------------------------");
+                            System.out.println("Digite o cpf do cliente que esta fazendo o aluguel: ");
+                            cpf = lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
+                            if(ValidaCpf(cpf,listaClientes)){
+                                Clientes cliente = PegaCliente(cpf,listaClientes);
+                                System.out.println("Cliente encontrado!");
+                                System.out.println("Informacoes do cliente:\ncpf-> "+cliente.cpf+" Nome-> "+cliente.nome+" Telefone-> "+cliente.telefone);
+                                if(!Continuar()){
+                                    break;
+                                }
+                            }else{
+                                System.out.println("Cpf invalido ou nao existe!");
+                                break;
+                                }
+                            System.out.println("-------------------------------");
+                            //Criando o aluguel;
+                            System.out.println("Digite a quantidade de dias do aluguel");
+                            int quantidade_dias = input.nextInt();
+                            Clientes cliente = PegaCliente(cpf,listaClientes);
+                            Veiculos veiculo = PegaVeiculo(placa,listaVeiculos);
+                            listaAluguels.add(new Aluguel(quantidade_dias,cliente,veiculo));
+                            LimpaTela.limpatela();
+                            System.out.println("Aluguel criado com sucesso");
+                            System.out.println("-------------------------------");
                             break;
                         case 4:
                             System.out.println("\nContratos de aluguéis");
                             System.out.println("-------------------------------");
+                            listaAluguels(listaAluguels);
                             // (Implementação futura)
                             break;
 
                         case 5:
                             System.out.println("\nVeículos cadastrados:");
                             System.out.println("-------------------------------");
-                            if (listaVeiculos.isEmpty()) {
-                                System.out.println("Nenhum veículo cadastrado.");
-                            } else {
-                                for (Veiculos v : listaVeiculos) {
-                                    v.exibirveiculo();
-                                }
-                            }
+                            listaVeiculos(listaVeiculos);
                             break;
 
                         case 6:
                             System.out.println("\nClientes cadastrados:");
                             System.out.println("-------------------------------");
-                            if (listaClientes.isEmpty()) {
-                                System.out.println("Nenhum cliente cadastrado.");
-                            } else {
-                                for (Clientes c : listaClientes) {
-                                    c.exibircliente();
-                                }
-                            }
+                            listaClientes(listaClientes);
                             break;
 
                         case 0:
