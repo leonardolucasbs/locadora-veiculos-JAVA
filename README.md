@@ -34,15 +34,15 @@ Linguagem: Java
 
 ![area de registro de alugueis pt2](https://github.com/user-attachments/assets/14406fd0-6242-446b-bd0e-1000b1de01f7)
 
-## interface
+## Interface
 ![interface](https://github.com/user-attachments/assets/a8f840c4-ce80-4123-9688-95b52cd7621c)
-## contratos
+## Contratos
 ![contratos](https://github.com/user-attachments/assets/2a4b0917-70d3-4df3-87c9-6f4db2187ef5)
 ## Listagem de Clientes cadastrados
 ![Clientes cadastrados](https://github.com/user-attachments/assets/228c7d01-ea96-4bed-9c8e-6d2cd85d6d13)
 ## Listagem de carros cadastrados
 ![carros cadastrados](https://github.com/user-attachments/assets/b1e8db90-df5b-4620-8273-1e9864fab022)
-## adastros de clientes
+## Cadastros de clientes
 ![cadastro de clientes](https://github.com/user-attachments/assets/ff532092-fe3a-406b-b4bc-f7b81a478f6c)
-## cadastro de carros
+## Cadastro de carros
 ![cadastro carros](https://github.com/user-attachments/assets/b62ef998-48c9-4740-aee4-9797a8d814c7)
