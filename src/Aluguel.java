@@ -34,6 +34,6 @@ public class Aluguel {
         this.preco_aluguel = quantidade_dias * veiculo.valor;
     }
     public void exibirAlugueis(){
-        System.out.println("Cliente-CPF: " +cliente.cpf+ " | Veiculo: " +veiculo.modelo+" "+ veiculo.ano + "\n" + " | Data aluguel" + data_aluguel + " | Final do aluguel" + final_aluguel + " | Preco do aluguel: " + preco_aluguel);
+        System.out.println("Cliente-CPF: " +cliente.cpf+ " | Veiculo: " +veiculo.modelo+" "+ veiculo.ano + "\n" + " | Data aluguel: " + data_aluguel + " | Final do aluguel: " + final_aluguel + " | Preco do aluguel: " + preco_aluguel);
     }
 }
