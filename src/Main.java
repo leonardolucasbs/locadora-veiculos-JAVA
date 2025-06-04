@@ -201,11 +201,11 @@ public class Main {
 
                             // CPF (11 dígitos) - usando método auxiliar
                             String cpf = lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
-
+                            String email =  input.nextLine();
                             // Telefone (10 ou 11 dígitos) - usando método auxiliar
                             String telefone = lerTelefone(input);
-
-                            listaClientes.add(new Clientes(nome, cpf,telefone));
+                            
+                            listaClientes.add(new Clientes(nome, cpf, email, telefone));
                             System.out.println("\n " + nome + " cadastrado com sucesso!");
                             break;
 
@@ -244,7 +244,7 @@ public class Main {
                             if(ValidaCpf(cpf,listaClientes)){
                                 Clientes cliente = PegaCliente(cpf,listaClientes);
                                 System.out.println("Cliente encontrado!");
-                                System.out.println("Informacoes do cliente:\ncpf-> "+cliente.getEmail()+" Nome-> "+cliente.super.getNome()+" Telefone-> "+cliente.getTelefone());
+                                System.out.println("Informacoes do cliente:\ncpf-> "+cliente.getEmail()+" Nome-> "+cliente.getNome()+" Telefone-> "+cliente.getTelefone());
                                 if(!Continuar()){
                                     break;
                                 }
