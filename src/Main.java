@@ -32,7 +32,7 @@ public class Main {
             return true;
         }
         for(Veiculos veiculo : listaVeiculos){
-            if(veiculo.placa.equals(placa)){
+            if(veiculo.getPlaca().equals(placa)){
                 return true;
             }
         }
@@ -40,7 +40,7 @@ public class Main {
     }
     public static boolean ValidaCpf(String cpf,ArrayList<Clientes> listaClientes){
         for(Clientes cliente : listaClientes){
-            if(cliente.cpf.equals(cpf)){
+            if(cliente.getEmail().equals(cpf)){
                 return true;
             }
         }
@@ -48,7 +48,7 @@ public class Main {
     }
     public static Clientes PegaCliente(String cpf,ArrayList<Clientes> listaClientes){
         for(Clientes cliente : listaClientes){
-            if(cliente.cpf.equals(cpf)){
+            if(cliente.getEmail().equals(cpf)){
                 return cliente;
             }
         }
@@ -57,7 +57,7 @@ public class Main {
 
     public static Veiculos PegaVeiculo(String placa,ArrayList<Veiculos> listaVeiculos){
         for(Veiculos veiculo : listaVeiculos){
-            if(veiculo.placa.equals(placa)){
+            if(veiculo.getPlaca().equals(placa)){
                 return veiculo;
             }
         }
@@ -205,7 +205,7 @@ public class Main {
                             // Telefone (10 ou 11 dígitos) - usando método auxiliar
                             String telefone = lerTelefone(input);
 
-                            listaClientes.add(new Clientes(nome, cpf, telefone));
+                            listaClientes.add(new Clientes(nome, cpf,telefone));
                             System.out.println("\n " + nome + " cadastrado com sucesso!");
                             break;
 
@@ -223,7 +223,7 @@ public class Main {
                             if(validaPlacaVeiculo(placa,listaVeiculos)){
                                 Veiculos veiculo = PegaVeiculo(placa,listaVeiculos);
                                 System.out.println("Veiculo encontrado!");
-                                System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.modelo+" Ano-> "+veiculo.ano+" Placa-> "+veiculo.placa);
+                                System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.getModelo()+" Ano-> "+veiculo.getAno()+" Placa-> "+veiculo.getPlaca());
                                 if(!Continuar()){
                                     break;
                                 }
@@ -244,7 +244,7 @@ public class Main {
                             if(ValidaCpf(cpf,listaClientes)){
                                 Clientes cliente = PegaCliente(cpf,listaClientes);
                                 System.out.println("Cliente encontrado!");
-                                System.out.println("Informacoes do cliente:\ncpf-> "+cliente.cpf+" Nome-> "+cliente.nome+" Telefone-> "+cliente.telefone);
+                                System.out.println("Informacoes do cliente:\ncpf-> "+cliente.getEmail()+" Nome-> "+cliente.super.getNome()+" Telefone-> "+cliente.getTelefone());
                                 if(!Continuar()){
                                     break;
                                 }

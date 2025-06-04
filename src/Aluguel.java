@@ -3,12 +3,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Aluguel {
-    int quantidade_dias;
-    String data_aluguel;
-    String final_aluguel;
-    Clientes cliente;
-    Veiculos veiculo;
-    double preco_aluguel;
+    private int quantidade_dias;
+    private String data_aluguel;
+    private String final_aluguel;
+    private Clientes cliente;
+    private Veiculos veiculo;
+    private double preco_aluguel;
     
     private LocalDate CalculaDataFinal(int quantidade_dias,LocalDate data_aluguel){
         int dia_atual = data_aluguel.getDayOfMonth();
@@ -31,9 +31,9 @@ public class Aluguel {
         String data_atual = FormataData(LocalDate.now());
         this.data_aluguel = data_atual;
         this.final_aluguel =  FormataData(CalculaDataFinal(quantidade_dias, LocalDate.now()));
-        this.preco_aluguel = quantidade_dias * veiculo.valor;
+        this.preco_aluguel = quantidade_dias * veiculo.getValor();
     }
     public void exibirAlugueis(){
-        System.out.println("Cliente-CPF: " +cliente.cpf+ " | Veiculo: " +veiculo.modelo+" "+ veiculo.ano + "\n" + " | Data aluguel: " + data_aluguel + " | Final do aluguel: " + final_aluguel + " | Preco do aluguel: " + preco_aluguel);
+        System.out.println("Cliente-CPF: " +cliente.getCpf()+ " | Veiculo: " +veiculo.getModelo()+" "+ veiculo.getAno() + "\n" + " | Data aluguel: " + data_aluguel + " | Final do aluguel: " + final_aluguel + " | Preco do aluguel: " + preco_aluguel);
     }
 }

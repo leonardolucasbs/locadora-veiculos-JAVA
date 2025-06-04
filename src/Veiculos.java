@@ -1,8 +1,8 @@
 public class Veiculos {
-    String modelo;
-    String placa;
-    int ano;
-    double valor;
+    private String modelo;
+    private String placa;
+    private int ano;
+    private double valor;
     public Veiculos(String modelo, String placa, int ano, double valor){
         this.modelo = modelo;
         this.ano = ano;
@@ -14,5 +14,14 @@ public class Veiculos {
     }
     public String getPlaca() {
         return placa;
+    }
+    public String getModelo() {
+        return modelo;
+    }
+    public int getAno() {
+        return ano;
+    }
+    public double getValor() {
+        return valor;
     }
 }
