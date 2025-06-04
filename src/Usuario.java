@@ -1,4 +1,3 @@
-import java.text.Normalizer.Form;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +7,7 @@ public class Usuario {
     protected String data_criacao;
 
     private String FormataData(LocalDate data){
-        DateTimeFormatter formatandoData = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatandoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String data_formatada = formatandoData.format(data);
         return data_formatada;
     }
