@@ -26,8 +26,8 @@ public class Main {
             System.out.println("Erro: Telefone deve ter 10 (fixo) ou 11 (celular) dígitos.");
         }
     }
-
-    public static Boolean validaPlacaVeiculo(String placa,ArrayList<Veiculos> listaVeiculos){
+   /*
+    public Boolean validaPlacaVeiculo(String placa,ArrayList<Veiculos> listaVeiculos){
         if(placa.length() != 7){
             return true;
         }
@@ -38,6 +38,7 @@ public class Main {
         }
         return false;
     }
+        
     public static boolean ValidaCpf(String cpf,ArrayList<Clientes> listaClientes){
         for(Clientes cliente : listaClientes){
             if(cliente.getEmail().equals(cpf)){
@@ -46,6 +47,7 @@ public class Main {
         }
         return false;
     }
+  
     public static Clientes PegaCliente(String cpf,ArrayList<Clientes> listaClientes){
         for(Clientes cliente : listaClientes){
             if(cliente.getEmail().equals(cpf)){
@@ -54,6 +56,7 @@ public class Main {
         }
         return null;
     }
+    
 
     public static Veiculos PegaVeiculo(String placa,ArrayList<Veiculos> listaVeiculos){
         for(Veiculos veiculo : listaVeiculos){
@@ -87,6 +90,7 @@ public class Main {
             return true;
         }
     }
+
     public static boolean listaAluguels(ArrayList<Aluguel> listaAluguels){
         if (listaAluguels.isEmpty()) {
             System.out.println("Nenhum Aluguel cadastrado.");
@@ -98,6 +102,7 @@ public class Main {
             return true;
         }
     }
+*/
     public static boolean Continuar(){
         Scanner teclado = new Scanner(System.in);
         System.out.println("Deseja continuar: ");
@@ -111,14 +116,45 @@ public class Main {
     }
     public static void main(String[] args) {
         int anoAtual = LocalDate.now().getYear();
-        ArrayList<Veiculos> listaVeiculos = new ArrayList<>();
-        ArrayList<Clientes> listaClientes = new ArrayList<>();
-        ArrayList<Aluguel> listaAluguels = new ArrayList<>();
+        ControllerAdmin controller_admin = new ControllerAdmin();
+        ControllerCliente controller_clientes = new ControllerCliente();
         Scanner input = new Scanner(System.in);
         boolean continua = true;
-
+        boolean authenticado_cliente = false;
+        boolean authenticado_admin = false;
+        String senha = "12345";
         try {
             while (continua) {
+                System.out.println("-------------------------------");
+                System.out.println("Bem vindo!\nComo deseja se registrar?\n[1]-Cliente\n[2]-Admin");
+                int tipo_usuario = input.nextInt();
+                input.nextLine(); // Limpar buffer
+                System.out.println("-------------------------------");
+                switch (tipo_usuario) {
+                
+                    case 1:
+                        LimpaTela.limpatela();
+                        System.out.println("-------------------------------");
+                        System.out.println("-Registrar como Cliente-");
+                        System.out.println("Complete as informacoes a baixo:");
+                        System.out.println("Digite seu Nome:");
+                        String nome_cliente = input.nextLine();
+                        System.out.println("Digite seu cpf:");
+                        String cpf = lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
+                        System.out.println("Digite seu telefone:");
+                        String telefone = lerTelefone(input);
+                        System.out.println("Digite seu Email (Nao e obrigatorio pode apenas apertar a tecla [ENTER]):");
+                        String email = input.nextLine();
+                        System.out.println("-------------------------------");
+                        authenticado_cliente = true;
+                        break;
+                    case 2:
+                        //
+                        authenticado_admin = true;
+                        break;
+                    default:
+                        break;
+                }
                 System.out.println("-------------------------------");
                 System.out.println("java-Motors");
                 System.out.println("[1] - Cadastro de Veículos");
@@ -127,7 +163,9 @@ public class Main {
                 System.out.println("[4] - Contratos de Aluguéis");
                 System.out.println("[5] - Listagem de Veículos");
                 System.out.println("[6] - Listagem de Clientes");
+                System.out.println("[7] - Log out"); // authenticado cliente = False
                 System.out.println("[0] - Sair");
+
                 System.out.println("-------------------------------");
                 System.out.print("Opção: ");
 
@@ -145,11 +183,11 @@ public class Main {
 
                             System.out.print("Digite a placa do veículo: ");
                             String placa = input.nextLine();
-                            boolean valida_placa = validaPlacaVeiculo(placa, listaVeiculos);
+                            boolean valida_placa = controller_admin.validaPlacaVeiculo(placa);
                             while(valida_placa){
                                 System.out.print("OPS!Placa invalida\nDigite a placa do  novamente veículo: ");
                                 placa = input.nextLine().trim();
-                                valida_placa = validaPlacaVeiculo(placa, listaVeiculos);
+                                valida_placa = controller_admin.validaPlacaVeiculo(placa);
                             }
                             // Validação do ano
                             int ano = 0;
@@ -180,7 +218,7 @@ public class Main {
                                     System.out.println("Erro: Digite um número válido (ex: 150.50).");
                                 }
                             }
-                            listaVeiculos.add(new Veiculos(modelo, placa, ano, valor));
+                            controller_admin.adicionarVeiculo(new Veiculos(modelo, placa, ano, valor));
                             System.out.println("\n " + modelo + " com placa: " +placa+ " cadastrado com sucesso!");
                             break;
 
@@ -205,7 +243,8 @@ public class Main {
                             // Telefone (10 ou 11 dígitos) - usando método auxiliar
                             String telefone = lerTelefone(input);
                             
-                            listaClientes.add(new Clientes(nome, cpf, email, telefone));
+                            //listaClientes.add(new Clientes(nome, cpf, email, telefone));
+                            controller_clientes.adicionarCliente(new Clientes(nome, cpf, email, telefone));
                             System.out.println("\n " + nome + " cadastrado com sucesso!");
                             break;
 
@@ -214,14 +253,14 @@ public class Main {
                             System.out.println("-------------------------------");
                             // pegando veiculo
                             System.out.println("Veiculos cadastrados:");
-                            if(!listaVeiculos(listaVeiculos)){
+                            if(!controller_admin.listaVeiculos()){
                                 break;
                             }
                             System.out.println("-------------------------------");
                             System.out.println("Digite a placa do veiculo que deseja alugar:");
                             placa = input.nextLine();
-                            if(validaPlacaVeiculo(placa,listaVeiculos)){
-                                Veiculos veiculo = PegaVeiculo(placa,listaVeiculos);
+                            if( controller_admin.validaPlacaVeiculo(placa)){
+                                Veiculos veiculo = controller_admin.PegaVeiculo(placa);;
                                 System.out.println("Veiculo encontrado!");
                                 System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.getModelo()+" Ano-> "+veiculo.getAno()+" Placa-> "+veiculo.getPlaca());
                                 if(!Continuar()){
@@ -235,14 +274,14 @@ public class Main {
                             System.out.println("-------------------------------");
                             // pegando veiculo
                             System.out.println("Clientes cadastrados:");
-                            if(!listaClientes(listaClientes)){
+                            if(controller_admin.listaClientes()){
                                 break;
                             }
                             System.out.println("-------------------------------");
                             System.out.println("Digite o cpf do cliente que esta fazendo o aluguel: ");
                             cpf = lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
-                            if(ValidaCpf(cpf,listaClientes)){
-                                Clientes cliente = PegaCliente(cpf,listaClientes);
+                            if(controller_clientes.ValidaCpf(cpf)){
+                                Clientes cliente = controller_clientes.PegaCliente(cpf);
                                 System.out.println("Cliente encontrado!");
                                 System.out.println("Informacoes do cliente:\ncpf-> "+cliente.getEmail()+" Nome-> "+cliente.getNome()+" Telefone-> "+cliente.getTelefone());
                                 if(!Continuar()){
@@ -256,9 +295,9 @@ public class Main {
                             //Criando o aluguel;
                             System.out.println("Digite a quantidade de dias do aluguel");
                             int quantidade_dias = input.nextInt();
-                            Clientes cliente = PegaCliente(cpf,listaClientes);
-                            Veiculos veiculo = PegaVeiculo(placa,listaVeiculos);
-                            listaAluguels.add(new Aluguel(quantidade_dias,cliente,veiculo));
+                            Clientes cliente = controller_clientes.PegaCliente(cpf);
+                            Veiculos veiculo = controller_admin.PegaVeiculo(placa);
+                            controller_admin.adicionarAluguel(new Aluguel(quantidade_dias,cliente,veiculo));
                             LimpaTela.limpatela();
                             System.out.println("Aluguel criado com sucesso");
                             System.out.println("-------------------------------");
@@ -266,20 +305,25 @@ public class Main {
                         case 4:
                             System.out.println("\nContratos de aluguéis");
                             System.out.println("-------------------------------");
-                            listaAluguels(listaAluguels);
+                            controller_admin.listaAluguels();
                             // (Implementação futura)
                             break;
 
                         case 5:
                             System.out.println("\nVeículos cadastrados:");
                             System.out.println("-------------------------------");
-                            listaVeiculos(listaVeiculos);
+                            controller_admin.listaVeiculos();
                             break;
 
                         case 6:
                             System.out.println("\nClientes cadastrados:");
                             System.out.println("-------------------------------");
-                            listaClientes(listaClientes);
+                            controller_clientes.listaClientes();
+                            break;
+
+                        case 7:
+                            System.out.println("\nLOGOUT");
+                            System.out.println("-------------------------------");
                             break;
 
                         case 0:

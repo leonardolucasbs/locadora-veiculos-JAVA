@@ -12,6 +12,14 @@ public class Usuario {
         return data_formatada;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public Usuario(String nome, String cpf){
         this.nome = nome;
         this.cpf = cpf;
