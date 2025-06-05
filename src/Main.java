@@ -1,7 +1,10 @@
 import java.util.Scanner;
+
+import javax.print.DocFlavor.STRING;
+
 import java.util.ArrayList;
 import java.time.LocalDate;
-
+public class Main{
     public static void main(String[] args) {
         int anoAtual = LocalDate.now().getYear();
         Utilidades util = new Utilidades();
@@ -11,7 +14,6 @@ import java.time.LocalDate;
         boolean continua = true;
         boolean modoAdmin = false;
         try {
-            
             while (continua) {
                 System.out.println("-------------------------------");
                 System.out.println("Bem vindo!\nComo deseja se registrar?\n[1]-Cliente\n[2]-Admin");
@@ -20,47 +22,44 @@ import java.time.LocalDate;
                 System.out.println("-------------------------------");
                 switch (tipo_usuario) {
                     case 1:
-                    LimpaTela.limpatela();
-                    System.out.println("-------------------------------");
-                    System.out.println("-Registrar como Cliente-\nComplete as informacoes a baixo:");
-                    System.out.println("Digite seu Nome:");
-                    String nome_cliente = input.nextLine();
-                    System.out.println("Digite seu cpf:");
-                    String cpf = util.lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
-                    System.out.println("Digite seu telefone:");
-                    String telefone = util.lerTelefone(input);
-                    System.out.println("Digite seu Email (Nao e obrigatorio pode apenas apertar a tecla [ENTER]):");
-                    String email = input.nextLine();
-                    modoAdmin = false;
-                    continua = false;
-                    System.out.println("-------------------------------");
+                        LimpaTela.limpatela();
+                        System.out.println("-------------------------------");
+                        System.out.println("-Registrar como Cliente-\nComplete as informacoes a baixo:");
+                        System.out.println("Digite seu Nome:");
+                        String nome_cliente = input.nextLine();
+                        System.out.println("Digite seu cpf:");
+                        String cpf = util.lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
+                        System.out.println("Digite seu telefone:");
+                        String telefone = util.lerTelefone(input);
+                        System.out.println("Digite seu Email (Nao e obrigatorio pode apenas apertar a tecla [ENTER]):");
+                        String email = input.nextLine();
+                        modoAdmin = false;
+                        continua = true;
+                        System.out.println("-------------------------------");
                     
-                    break;
+                        break;
                     case 2:
-                    LimpaTela.limpatela();
-                    System.out.println("-------------------------------");
-                    System.out.println("Senha: ");
-                    int senha = input.nextInt();
-                    modoAdmin = controller_admin.authenticador(senha);
-                    System.out.println("-------------------------------");
-                    continua = false;
-                    break;
-                    default:
-                    break;
-                    } 
-                }
-                //
-                util.menu();
+                        LimpaTela.limpatela();
+                        System.out.println("-------------------------------");
+                        System.out.println("Senha: ");
+                        int senha = input.nextInt();
+                        modoAdmin = controller_admin.authenticador(senha);
+                        System.out.println("-------------------------------");
+                        continua = true;
+                        break;
+                        default:
+                        break;
+                    }                 
                 try {
+                    util.menu();
                     int opcao = input.nextInt();
                     input.nextLine(); // Limpar buffer
                     switch (opcao) {
                         case 1:
                             if (!modoAdmin) {
                                 System.out.println("Apenas administradores podem fazer isso!");
-                                input.nextLine(); 
-                                break;  
-                                }    
+                                break;
+                                } else{   
                                 System.out.println("\nÁrea de cadastro de veículos");
                                 System.out.println("-------------------------------");
                                 
@@ -104,16 +103,16 @@ import java.time.LocalDate;
                                     System.out.println("Erro: Digite um número válido (ex: 150.50).");
                                 }
                             }
-                            controller_admin.adicionarVeiculo(new Veiculos(modelo, placa, ano, valor));
-                            System.out.println("\n " + modelo + " com placa: " +placa+ " cadastrado com sucesso!");
-                            System.out.println("-------------------------------");
+                                controller_admin.adicionarVeiculo(new Veiculos(modelo, placa, ano, valor));
+                                System.out.println("\n " + modelo + " com placa: " +placa+ " cadastrado com sucesso!");
+                                System.out.println("-------------------------------");
+                            }
                             break;
-                        
                         case 2:
                             if (!modoAdmin) {
                                     System.out.println("Apenas administradores podem fazer isso!");
                                     break;
-                                } 
+                                }else{
                             System.out.println("\nÁrea de cadastro de clientes");
                             System.out.println("-------------------------------");
 
@@ -137,7 +136,8 @@ import java.time.LocalDate;
                                 //listaClientes.add(new Clientes(nome, cpf, email, telefone));
                                 controller_clientes.adicionarCliente(new Clientes(nome, cpf, email, telefone));
                                 System.out.println("\n " + nome + " cadastrado com sucesso!");
-                            break;
+                                break;
+                            }   
                             
                             case 3:
                                 System.out.println("\nÁrea de registro de aluguel");
@@ -149,9 +149,9 @@ import java.time.LocalDate;
                                 }
                                 System.out.println("-------------------------------");
                                 System.out.println("Digite a placa do veiculo que deseja alugar:");
-                                placa = input.nextLine();
+                                String placa = input.nextLine();
                                 if( controller_admin.validaPlacaVeiculo(placa)){
-                                    Veiculos veiculo = controller_admin.PegaVeiculo(placa);;
+                                    Veiculos veiculo = controller_admin.PegaVeiculo(placa);
                                     System.out.println("Veiculo encontrado!");
                                     System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.getModelo()+" Ano-> "+veiculo.getAno()+" Placa-> "+veiculo.getPlaca());
                                     if(!util.Continuar()){
@@ -170,7 +170,7 @@ import java.time.LocalDate;
                                 }
                                 System.out.println("-------------------------------");
                                 System.out.println("Digite o cpf do cliente que esta fazendo o aluguel: ");
-                                cpf = util.lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
+                                String cpf = util.lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
                                 if(controller_clientes.ValidaCpf(cpf)){
                                     Clientes cliente = controller_clientes.PegaCliente(cpf);
                                     System.out.println("Cliente encontrado!");
@@ -193,7 +193,7 @@ import java.time.LocalDate;
                                 LimpaTela.limpatela();
                                 System.out.println("Aluguel criado com sucesso");
                                 System.out.println("-------------------------------");
-                            break;
+                                break;
                             case 4:
                             if (!modoAdmin) {
                                 System.out.println("Apenas administradores podem fazer isso!");
@@ -204,14 +204,14 @@ import java.time.LocalDate;
                                 System.out.println("-------------------------------");
                                 controller_admin.listaAluguels();
                                 // (Implementação futura)
-                            break;
+                                break;
                             
                             case 5:
 
                                 System.out.println("\nVeículos cadastrados:");
                                 System.out.println("-------------------------------");
                                 controller_admin.listaVeiculos();
-                            break;
+                                break;
                             
                             case 6:
                             if (!modoAdmin) {
@@ -220,34 +220,35 @@ import java.time.LocalDate;
                                 System.out.println("\nClientes cadastrados:");
                                 System.out.println("-------------------------------");
                                 controller_clientes.listaClientes();
-                            break;
+                                break;
                             
                             case 7:
                                 System.out.println("\nLOGOUT");
                                 System.out.println("-------------------------------");
-                            break;
+                                break;
                             
                             case 0:
                                 continua = false;
                                 System.out.println("\nSaindo do sistema...");
-                            break;
+                                break;
                             
                             default:
                                 System.out.println("\n Opção inválida. Tente novamente.");
+                                
                         }
+                        
                     } catch (Exception e) {
                         System.out.println("\n Erro: Entrada inválida. Tente novamente.");
                         input.nextLine(); // Limpar buffer
                     }
-                
+                }   
             } finally {
-                System.out.println("eu sou gay");
                 if (input != null) {
                     input.close(); // Garante que o Scanner seja fechado
                 }
             }
         }
-    
+    }
     /*
      public Boolean validaPlacaVeiculo(String placa,ArrayList<Veiculos> listaVeiculos){
          if(placa.length() != 7){

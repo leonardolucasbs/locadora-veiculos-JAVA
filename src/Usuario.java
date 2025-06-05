@@ -24,6 +24,7 @@ public class Usuario {
         this.nome = nome;
         this.cpf = cpf;
         String data_atual = FormataData(LocalDate.now());
+        this.data_criacao = data_atual;
     }
 
     public void exibirUsuario(){
