@@ -4,7 +4,6 @@ public class Clientes extends Usuario {
     
     public Clientes(String nome,String cpf,String email,String telefone){
         super(nome, cpf);
-        this.telefone = telefone;
         this.email = email;
         this.telefone = telefone;
       
