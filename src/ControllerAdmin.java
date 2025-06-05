@@ -3,8 +3,21 @@ import java.util.ArrayList;
 public class ControllerAdmin extends ControllerCliente{
     private ArrayList<Veiculos> listaVeiculos;
     private ArrayList<Aluguel> listaAluguels;
+    private static final int senha = 12345;
     public ControllerAdmin() {
         this.listaVeiculos = new ArrayList<>();
+    }
+    private int getSenha(){
+        return senha;
+    }
+    public boolean authenticador(int senhaDigitada) {
+        if(senhaDigitada == getSenha()){
+            System.out.println("Autenticação de administrador bem-sucedida!");
+            return true;
+        } else {
+            System.out.println("Senha incorreta!");
+            return false;
+        }
     }
 
     public void adicionarAluguel(Aluguel aluguel){
@@ -13,6 +26,9 @@ public class ControllerAdmin extends ControllerCliente{
 
     public void adicionarVeiculo(Veiculos veiculo) {
         listaVeiculos.add(veiculo);
+    }
+    public void removerVeiculo(Veiculos veiculo) {
+        listaVeiculos.remove(veiculo);
     }
 
     public Boolean validaPlacaVeiculo(String placa){
