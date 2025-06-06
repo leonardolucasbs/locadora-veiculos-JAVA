@@ -1,7 +1,6 @@
 public class Admin extends Usuario{
     private String email;
     private String telefone;
-    protected String senha = "123";
 
     public Admin(String nome,String cpf,String email,String telefone){
         super(nome, cpf);
