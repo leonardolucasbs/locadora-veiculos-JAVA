@@ -10,7 +10,6 @@ public class Main{
         
         Utilidades util = new Utilidades();
         ControllerAdmin controller_admin = new ControllerAdmin();
-        ControllerCliente controller_clientes = new ControllerCliente();
         Scanner input = new Scanner(System.in);
 
         while (continua) {
@@ -39,17 +38,20 @@ public class Main{
                         String cpf = util.lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
                         String email =  input.nextLine();
                         String telefone = util.lerTelefone(input);
-                        controller_clientes.adicionarCliente(new Clientes(nome, cpf, email, telefone));
+                        controller_admin.adicionarCliente(new Clientes(nome, cpf, email, telefone));
                         System.out.println("\n " + nome + " cadastrado com sucesso!");
                         
                     break;
                 case 2:
                     LimpaTela.limpatela();
                     System.out.println("-------------------------------");
-                    System.out.println("Senha: ");
-                    int senha = input.nextInt();
+                    while(!modoAdmin){
+                        System.out.println("Senha: ");
+                        int senha = input.nextInt();    
+                        modoAdmin = controller_admin.authenticador(senha);
                     
-                    modoAdmin = controller_admin.authenticador(senha);
+                    }
+                    
                     System.out.println("-------------------------------");
                     break;
                 
@@ -138,8 +140,7 @@ public class Main{
                             // Telefone (10 ou 11 dígitos) - usando método auxiliar
                             String telefone = util.lerTelefone(input);
                             
-                            //listaClientes.add(new Clientes(nome, cpf, email, telefone));
-                            controller_clientes.adicionarCliente(new Clientes(nome, cpf, email, telefone));
+                            controller_admin.adicionarCliente(new Clientes(nome, cpf, email, telefone));
                             System.out.println("\n " + nome + " cadastrado com sucesso!");
                             break;
                         }   
@@ -148,13 +149,13 @@ public class Main{
                         System.out.println("-------------------------------");
                         // pegando veiculo
                         System.out.println("Veiculos cadastrados:");
-                        if(!controller_admin.listaVeiculos()){
+                        if(!controller_admin.listarVeiculos()){
                             break;
                         }
                         System.out.println("-------------------------------");
                         System.out.println("Digite a placa do veiculo que deseja alugar:");
                         String placa = input.nextLine();
-                        if( controller_admin.validaPlacaVeiculo(placa)){
+                        if(controller_admin.validaPlacaVeiculo(placa)){
                             Veiculos veiculo = controller_admin.PegaVeiculo(placa);
                             System.out.println("Veiculo encontrado!");
                             System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.getModelo()+" Ano-> "+veiculo.getAno()+" Placa-> "+veiculo.getPlaca());
@@ -169,15 +170,15 @@ public class Main{
                         System.out.println("-------------------------------");
                         // pegando veiculo
                         System.out.println("Clientes cadastrados:");
-                        if(controller_admin.listaClientes()){
+                        if(!controller_admin.listarClientes()){
                             break;
                         }
                         System.out.println("-------------------------------");
                         System.out.println("Digite o cpf do cliente que esta fazendo o aluguel: ");
-                        String cpf = util.lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
-                        if(controller_clientes.ValidaCpf(cpf)){
-                            Clientes cliente = controller_clientes.PegaCliente(cpf);
+                        String cpf = input.nextLine();
+                        if(controller_admin.ValidaCpf(cpf)){
                             System.out.println("Cliente encontrado!");
+                            Clientes cliente = controller_admin.PegaCliente(cpf);
                             System.out.println("Informacoes do cliente:\ncpf-> "+cliente.getEmail()+" Nome-> "+cliente.getNome()+" Telefone-> "+cliente.getTelefone());
                             if(!util.Continuar()){
                                 break;
@@ -190,7 +191,7 @@ public class Main{
                         //Criando o aluguel;
                         System.out.println("Digite a quantidade de dias do aluguel");
                         int quantidade_dias = input.nextInt();
-                        Clientes cliente = controller_clientes.PegaCliente(cpf);
+                        Clientes cliente = controller_admin.PegaCliente(cpf);
                         Veiculos veiculo = controller_admin.PegaVeiculo(placa);
                         controller_admin.adicionarAluguel(new Aluguel(quantidade_dias,cliente,veiculo));
                         controller_admin.removerVeiculo(veiculo);
@@ -214,7 +215,7 @@ public class Main{
                         
                         System.out.println("\nVeículos cadastrados:");
                         System.out.println("-------------------------------");
-                        controller_admin.listaVeiculos();
+                        controller_admin.listarVeiculos();
                         break;
                     
                     case 6:
@@ -222,10 +223,9 @@ public class Main{
                             System.out.println("Somente administradores podem utilizar esta area!");
                             break;
                         }else {
-
                             System.out.println("\nClientes cadastrados:");
                             System.out.println("-------------------------------");
-                            controller_clientes.listaClientes();
+                            controller_admin.listarClientes();
                         }
                         break;
                     case 7:
@@ -245,8 +245,7 @@ public class Main{
                     
                 } //switch
             }// while
-        }                 
-            
+        }                      
     }//main
 }//main
     
