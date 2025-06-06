@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 
-public class ControllerAdmin extends ControllerCliente{
+public class ControllerAdmin{
     private ArrayList<Veiculos> listaVeiculos;
     private ArrayList<Aluguel> listaAluguels;
+    private ArrayList<Clientes> listaClientes;
     private static final int senha = 12345;
     public ControllerAdmin() {
         this.listaVeiculos = new ArrayList<>();
+        this.listaClientes = new ArrayList<>();
+        this.listaAluguels = new ArrayList<>();
     }
     private int getSenha(){
         return senha;
@@ -51,7 +54,7 @@ public class ControllerAdmin extends ControllerCliente{
         return null;
     }
 
-    public boolean listaVeiculos(){
+    public boolean listarVeiculos(){
         if (listaVeiculos.isEmpty()) {
             System.out.println("Nenhum veículo cadastrado.");
             return false;
@@ -73,6 +76,41 @@ public class ControllerAdmin extends ControllerCliente{
             }
             return true;
         }
+    }
+
+    public void adicionarCliente(Clientes cliente) {
+        listaClientes.add(cliente);
+    }
+
+
+    public boolean listarClientes(){
+        if (listaClientes.isEmpty()) {
+            System.out.println("Nenhum cliente cadastrado.");
+             return false;
+        }else {
+            for (Clientes c : listaClientes) {
+                c.exibircliente();
+            }
+            return true;
+        }
+    }
+
+    public Clientes PegaCliente(String cpf){
+        for(Clientes cliente : listaClientes){
+            if(cliente.getCpf().equals(cpf)){
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public boolean ValidaCpf(String cpf){
+        for(Clientes cliente : listaClientes){
+            if(cliente.getCpf().equals(cpf)){
+                return true;
+            }
+        }
+        return false;
     }
     
 }
