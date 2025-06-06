@@ -37,6 +37,7 @@ public class ControllerCliente{
     public boolean ValidaCpf(String cpf){
         for(Clientes cliente : listaClientes){
             if(cliente.getEmail().equals(cpf)){
+                
                 return true;
             }
         }
