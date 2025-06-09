@@ -1,27 +1,43 @@
 import java.util.ArrayList;
 
 public class ControllerAdmin{
+    private Admin admin;
     private ArrayList<Veiculos> listaVeiculos;
     private ArrayList<Aluguel> listaAluguels;
     private ArrayList<Clientes> listaClientes;
-    private static final int senha = 12345;
     public ControllerAdmin() {
         this.listaVeiculos = new ArrayList<>();
         this.listaClientes = new ArrayList<>();
         this.listaAluguels = new ArrayList<>();
+        this.admin = new Admin("admin", "88888888");
     }
+
     private int getSenha(){
-        return senha;
+        return Admin.getSenha();
     }
-    public boolean authenticador(int senhaDigitada) {
-        if(senhaDigitada == getSenha()){
-            System.out.println("Autenticação de administrador bem-sucedida!");
-            return true;
-        } else {
-            System.out.println("Senha incorreta!");
-            return false;
-        }
+    private String getNome(){
+        return admin.getNomeadm();
     }
+    private String getCpf(){
+        return admin.getCpf();
+    }
+
+    public boolean authenticador(int senhaDigitada, String nome, String cpf) {
+    if (!getNome().equals(nome)) {
+        System.out.println("Nome de administrador incorreto!");
+        return false;
+    }
+    if (!getCpf().equals(cpf)) {
+        System.out.println("CPF de administrador incorreto!");
+        return false;
+    }
+    if (senhaDigitada != getSenha()) {
+        System.out.println("Senha incorreta!");
+        return false;
+    }
+    System.out.println("Autenticação de administrador bem-sucedida!");
+    return true;
+}
 
     public void adicionarAluguel(Aluguel aluguel){
         listaAluguels.add(aluguel);

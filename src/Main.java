@@ -40,15 +40,20 @@ public class Main{
                         String telefone = util.lerTelefone(input);
                         controller_admin.adicionarCliente(new Clientes(nome, cpf, email, telefone));
                         System.out.println("\n " + nome + " cadastrado com sucesso!");
-                        
+                        modoAdmin = false;
                     break;
                 case 2:
                     LimpaTela.limpatela();
                     System.out.println("-------------------------------");
                     while(!modoAdmin){
+                        System.out.println("nome: ");
+                        String nomeadmin = input.nextLine();
+                        System.out.print("cpf:");
+                        String cpfadmin = input.nextLine();
                         System.out.println("Senha: ");
+                        System.out.println( );
                         int senha = input.nextInt();    
-                        modoAdmin = controller_admin.authenticador(senha);
+                        modoAdmin = controller_admin.authenticador(senha, nomeadmin, cpfadmin);
                     
                     }
                     
@@ -158,7 +163,7 @@ public class Main{
                         if(controller_admin.validaPlacaVeiculo(placa)){
                             Veiculos veiculo = controller_admin.PegaVeiculo(placa);
                             System.out.println("Veiculo encontrado!");
-                            System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.getModelo()+" Ano-> "+veiculo.getAno()+" Placa-> "+veiculo.getPlaca());
+                            System.out.println("Informacoes do veiculo:\nModelo-> "+veiculo.getModelo()+" Ano-> "+veiculo.getAno()+" Placa-> "+veiculo.getPlaca() + "Preço-> "+ veiculo.getValor());
                             if(!util.Continuar()){
                                 break;
                             }

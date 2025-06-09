@@ -1,19 +1,20 @@
 public class Admin extends Usuario{
-    private String email;
-    private String telefone;
-    protected String senha = "123";
+    private static final int senha = 12345;
 
-    public Admin(String nome,String cpf,String email,String telefone){
+    public Admin(String nome,String cpf){
         super(nome, cpf);
-        this.email = email;
-        this.telefone = telefone;
+        
     }
 
-    public String getEmail() {
-        return email;
+    public static int getSenha(){
+        return senha;
     }
-    public String getTelefone() {
-        return telefone;
+    public String getNomeadm(){
+        return super.getNome();
     }
+    public String getCPFadm(){
+        return super.getCpf();
+    }
+   
     
 }
