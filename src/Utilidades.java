@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.util.InputMismatchException;
 public class Utilidades {
     public void menu(){
         System.out.println("-------------------------------");
@@ -37,23 +35,6 @@ public class Utilidades {
             }
             System.out.println("Erro: Deve ter exatamente " + tamanho + " dígitos. Tente novamente.");
         }
-    }
-    public int lerAnoVeiculo(Scanner input, int ano ) {
-        while (true) {
-            System.out.print("Digite o ano do veículo: ");
-            try {
-                ano = input.nextInt();
-                if (ano >= 1886 && ano <= LocalDate.now().getYear()) { 
-                    return ano;
-                } else {
-                    System.out.println("Erro: Ano inválido. Deve ser entre 1886 e " + LocalDate.now().getYear() + ".");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Erro: Entrada inválida. Digite um número.");
-                input.next(); 
-            }
-        }
-       
     }
     
     public  boolean Continuar(){

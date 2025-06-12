@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ControllerAdmin{
     private Admin admin;
@@ -22,22 +23,47 @@ public class ControllerAdmin{
         return admin.getCpf();
     }
 
-    public boolean authenticador(int senhaDigitada, String nome, String cpf) {
-    if (!getNome().equals(nome)) {
-        System.out.println("Nome de administrador incorreto!");
-        return false;
+    public void authenticador(Scanner input) {
+        while (true) {
+            try {
+                
+                System.out.println("Nome de usuário: ");
+                String nomeDigitado = input.nextLine();
+
+                System.out.println("CPF: ");
+                String cpfDigitado = input.nextLine();
+
+                System.out.println("Senha: ");
+                String senhaDigitadaStr = input.nextLine();
+
+                
+                int senhaNumerica = Integer.parseInt(senhaDigitadaStr);
+
+                
+                if (getNome().equalsIgnoreCase(nomeDigitado) &&
+                    getCpf().equals(cpfDigitado) &&
+                    getSenha() == senhaNumerica){
+                    
+                    System.out.println("\nAutenticação bem-sucedida!");
+                    break; 
+                } else {
+        
+                    System.err.println("\nNome de usuário, CPF ou senha incorretos. Tente novamente.");
+                }
+
+            } catch (NumberFormatException e) {
+               
+                System.err.println("\nFormato de senha inválido. A senha deve ser numérica. Tente novamente.");
+            }
+            
+            System.out.println("Pressione Enter para continuar...");
+            input.nextLine();
+
+        }
+            
+
     }
-    if (!getCpf().equals(cpf)) {
-        System.out.println("CPF de administrador incorreto!");
-        return false;
-    }
-    if (senhaDigitada != getSenha()) {
-        System.out.println("Senha incorreta!");
-        return false;
-    }
-    System.out.println("Autenticação de administrador bem-sucedida!");
-    return true;
-}
+
 
     public void adicionarAluguel(Aluguel aluguel){
         listaAluguels.add(aluguel);

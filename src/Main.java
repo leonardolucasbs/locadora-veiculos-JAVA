@@ -43,21 +43,14 @@ public class Main{
                         modoAdmin = false;
                     break;
                 case 2:
-                    LimpaTela.limpatela();
                     System.out.println("-------------------------------");
-                    while(!modoAdmin){
-                        System.out.println("nome: ");
-                        String nomeadmin = input.nextLine();
-                        System.out.print("cpf:");
-                        String cpfadmin = input.nextLine();
-                        System.out.println("Senha: ");
-                        System.out.println( );
-                        int senha = input.nextInt();    
-                        modoAdmin = controller_admin.authenticador(senha, nomeadmin, cpfadmin);
-                    
-                    }
-                    
+                    System.out.println("BEM-VINDO AO SISTEMA");
                     System.out.println("-------------------------------");
+                    
+                    controller_admin.authenticador(input);
+
+                    System.out.println("\nLogin efetuado. Acessando o menu principal do administrador...");
+                    modoAdmin = true;
                     break;
                 
                 }
@@ -65,7 +58,7 @@ public class Main{
                 while (continua2){
                     util.menu();
                     int opcao = input.nextInt();
-                    input.nextLine(); // Limpar buffer
+                    input.nextLine(); 
                     switch (opcao) {
                         case 1:
                         if (!modoAdmin) {
@@ -89,10 +82,10 @@ public class Main{
                         // Validação do ano
                         int ano = 0;
                         while (true) {
-                            System.out.print("Digite o ano do veículo (1769-" + (anoAtual + 1) + "): ");
+                            System.out.print("Digite o ano do veículo (1886-" + (anoAtual + 1) + "): ");
                             try {
                                 ano = Integer.parseInt(input.nextLine());
-                                if (ano >= 1769 && ano <= anoAtual + 1) {
+                                if (ano >= 1886 && ano <= anoAtual + 1) {
                                     break;
                                 }
                                 System.out.println("Erro: Ano inválido.");
@@ -139,10 +132,9 @@ public class Main{
                                 System.out.println("Erro: Nome não pode ser vazio.");
                             }
                             
-                            // CPF (11 dígitos) - usando método auxiliar
                             String cpf = util.lerDadoNumerico(input, "Digite o CPF (11 dígitos): ", 11);
                             String email =  input.nextLine();
-                            // Telefone (10 ou 11 dígitos) - usando método auxiliar
+                            
                             String telefone = util.lerTelefone(input);
                             
                             controller_admin.adicionarCliente(new Clientes(nome, cpf, email, telefone));
@@ -207,7 +199,7 @@ public class Main{
                     case 4:
                         if (!modoAdmin) {
                             System.out.println("Apenas administradores podem fazer isso!");
-                            input.nextLine(); // Limpa o buffer
+                            input.nextLine(); 
                             ; 
                         } 
                         System.out.println("\nContratos de aluguéis");
